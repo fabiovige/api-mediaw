@@ -4,6 +4,8 @@
 
 git clone https://github.com/fabiovige/api-mediaw
 
+cd api-mediaw
+
 docker compose up -d
 
 docker exec mediaw-app bash
