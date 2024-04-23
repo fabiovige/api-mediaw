@@ -9,4 +9,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::apiResource('companies', CompanyController::class);
+//Route::apiResource('companies', CompanyController::class);
+
+Route::prefix('companies')->as('companies:')->group(function () {
+    Route::get('/', \App\Http\Controllers\Api\V1\Company\IndexController::class, 'index');
+});

@@ -1,19 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api\V1\Company;
 
-use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\CompanyResource;
 use App\Models\Company;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Http\Request;
-use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
 
-class CompanyController extends Controller
+class IndexController
 {
-
-    public function index(Request $request)
+    public function __invoke()
     {
         $companies = QueryBuilder::for(Company::class)
             ->allowedFilters(['id_company', 'company', 'cnpj'])
@@ -23,5 +18,4 @@ class CompanyController extends Controller
             resource: $companies
         );
     }
-
 }
