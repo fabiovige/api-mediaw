@@ -12,5 +12,6 @@ Route::get('/user', function (Request $request) {
 //Route::apiResource('companies', CompanyController::class);
 
 Route::prefix('companies')->as('companies:')->group(function () {
-    Route::get('/', \App\Http\Controllers\Api\V1\Company\IndexController::class, 'index');
+    Route::get('/', \App\Http\Controllers\Api\V1\Company\IndexController::class)->name('index');
+    Route::post('/', \App\Http\Controllers\Api\V1\Company\StoreController::class)->name('store');
 });
