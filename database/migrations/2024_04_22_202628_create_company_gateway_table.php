@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('company_gateway', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_company')->references('id_company')->on('company')->onDelete('cascade');
-            $table->string('name_gateway')->unique();
-            $table->string('public_key')->unique();
-            $table->string('live_api_key')->unique();
-            $table->string('recipient_id')->unique();
+            $table->string('name_gateway');
+            $table->string('public_key');
+            $table->string('live_api_key');
+            $table->string('recipient_id');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('payment_credentials');
+        Schema::dropIfExists('company_gateway');
     }
 };

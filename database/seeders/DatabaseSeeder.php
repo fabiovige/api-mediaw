@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Company;
+use App\Models\CompanyAuthentication;
+use App\Models\CompanyGateway;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -13,11 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Company::factory(3)
+            ->has(CompanyAuthentication::factory()->count(1), 'company_authentication')
+            ->has(CompanyGateway::factory()->count(2), 'company_gateways')
+            ->create();
     }
 }
