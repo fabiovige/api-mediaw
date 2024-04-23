@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('company_authentication', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_company')->references('id_company')->on('company')->onDelete('cascade');
-            $table->string('token_api_service')->unique();
+            $table->string('token_api_service', 512)->unique();
             $table->timestamps();
         });
     }

@@ -23,7 +23,7 @@ class StoreCompanyRequest extends FormRequest
     {
         return [
             'company' => 'required|string|max:255',
-            'cnpj' => 'required|cnpj|unique:company|max:14',
+            //'cnpj' => 'required|cnpj|unique:company|max:14',
             'gateways' => 'required|array',
             'gateways.*.name_gateway' => 'required|string',
             'gateways.*.public_key' => 'required|string',

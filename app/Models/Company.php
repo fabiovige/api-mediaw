@@ -15,6 +15,11 @@ class Company extends Model
     protected $primaryKey = 'id_company';
     protected $fillable = ['company', 'cnpj'];
 
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class);
+    }
+
     public function company_authentication(): HasOne
     {
         return $this->hasOne(CompanyAuthentication::class, 'id_company', 'id_company');
