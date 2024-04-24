@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('id_company');
             $table->string('company')->unique();
             $table->string('cnpj', 14)->unique();
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

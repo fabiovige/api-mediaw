@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Api\V1\Company;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Resources\Api\V1\CompanyResource;
 use App\Models\Company;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+use Ramsey\Uuid\Uuid;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class StoreController
 {
@@ -14,10 +19,24 @@ class StoreController
         DB::beginTransaction();
 
         try {
-            $company = Company::create($request->all());
+            $uuid = Uuid::uuid4();
+            
+            $user = User::create([
+                'name' => $request->company,
+                'email' => $request->email,
+                'email_verified_at' => now(),
+                'password' => Hash::make($uuid),
+                'remember_token' => Str::random(10),
+            ]);
+
+            $company = Company::create([
+                'company' => $request->company,
+                'cnpj' => $request->cnpj,
+                'user_id' => $user->id
+            ]);
 
             $company->company_authentication()->create([
-                'token_api_service' =>  \Ramsey\Uuid\Uuid::uuid4()
+                'token_api_service' =>  $uuid
             ]);
 
             $company->company_gateways()->createMany($request->gateways);
@@ -26,13 +45,10 @@ class StoreController
 
             return new CompanyResource($company);
 
-            //return response()->json(['message' => 'Company created successfully', 'data' => $company], 201);
-
         } catch (\Exception $e) {
-            // Em caso de erro, reverte a transação
+
             DB::rollBack();
 
-            // Retorna uma resposta de erro
             return response()->json(['message' => 'Failed to create company', 'error' => $e->getMessage()], 500);
         }
     }

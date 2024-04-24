@@ -16,8 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(1)->create();
-
         Company::factory(1)
             ->has(CompanyAuthentication::factory()->count(1), 'company_authentication')
             ->has(CompanyGateway::factory()->count(1), 'company_gateways')

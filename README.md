@@ -16,5 +16,11 @@ php artisan key:generate
 
 php artisan migrate
 
-http://api-mediaw.test/
+## endpoints
+
+[GET] http://api-mediaw.test/api/v1/companies
+[POST] http://api-mediaw.test/api/v1/companies
+[GET] http://api-mediaw.test/api/v1/companies?page=1&filter[company]=ltda
+[GET] http://api-mediaw.test/api/v1/refresh
+[POST] http://api-mediaw.test/api/v1/login
 

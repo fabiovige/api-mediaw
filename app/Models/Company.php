@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -13,11 +14,11 @@ class Company extends Model
 
     protected $table = 'company';
     protected $primaryKey = 'id_company';
-    protected $fillable = ['company', 'cnpj'];
+    protected $fillable = ['company', 'cnpj', 'user_id'];
 
-    public function user(): HasOne
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function company_authentication(): HasOne

@@ -20,9 +20,12 @@ class CompanyFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::factory(1)->create();
+
         return [
             'company' => $this->faker->company,
-            'cnpj' => $this->faker->numerify('##############')
+            'cnpj' => $this->faker->numerify('##############'),
+            'user_id' => $user[0]->id
         ];
     }
 }

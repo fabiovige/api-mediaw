@@ -21,6 +21,7 @@ class CompanyResource extends JsonResource
             'cnpj' => $this->cnpj,
             'company_authentication' => $this->company_authentication,
             'company_gateways' => $this->company_gateways,
+            'user' => $this->user,
         ];
     }
 }
