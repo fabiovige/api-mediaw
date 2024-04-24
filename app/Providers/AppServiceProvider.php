@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\AuthService;
+use App\Services\AuthServices;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -12,7 +14,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
     }
 
     /**
@@ -20,5 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        $this->app->bind(
+            AuthServices::class
+        );
     }
 }
