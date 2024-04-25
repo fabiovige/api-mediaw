@@ -66,8 +66,20 @@ class PagarmeGateway implements PaymentGatewayInterface
         }
     }
 
-    public function getItemOrder($data){
-        return "getItemOrder do pagamento com Pagarme: " . json_encode($data);
+    public function getItemOrder(array $data = [])
+    {
+        $order_id = $data['order_id'];
+        $item_id = $data['item_id'];
+        try {
+            $response = Http::withHeaders($this->headers)->get( self::BASE_URL . "/orders/{$order_id}/items/{$item_id}", $data);
+            return json_decode($response->getBody(), true);
+        } catch (Exception $e) {
+            return ['data' => [
+                    'message' => 'Falha ao obter o item do pedido',
+                    'error' => $e->getMessage()
+                ]
+            ];
+        }
     }
 
     public function closeOrder(array $data, string $order_id)
@@ -84,7 +96,17 @@ class PagarmeGateway implements PaymentGatewayInterface
         }
     }
 
-    public function addItemOrder($data){
-        return "addItemOrder do pagamento com Pagarme: " . json_encode($data);
+    public function addItemOrder(array $data, string $order_id)
+    {
+        try {
+            $response = Http::withHeaders($this->headers)->post( self::BASE_URL . "/orders/{$order_id}/items", $data);
+            return json_decode($response->getBody(), true);
+        } catch (Exception $e) {
+            return ['data' => [
+                    'message' => 'Falha ao adicionar item ao pedido',
+                    'error' => $e->getMessage()
+                ]
+            ];
+        }
     }
 }

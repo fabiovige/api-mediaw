@@ -44,13 +44,11 @@ class PaymentGatewayService
         }
     }
 
-    public function getItemOrder($data)
+    public function getItemOrder(array $data = [])
     {
         try {
-            // Lógica para processar o pagamento usando o gateway específico
             return $this->gateway->getItemOrder($data);
         } catch (Exception $e) {
-            // Lidar com erros de processamento de pagamento
             return $e->getMessage();
         }
     }
@@ -64,13 +62,11 @@ class PaymentGatewayService
         }
     }
 
-    public function addItemOrder($data)
+    public function addItemOrder(array $data, string $order_id)
     {
         try {
-            // Lógica para processar o pagamento usando o gateway específico
-            return $this->gateway->addItemOrder($data);
+            return $this->gateway->addItemOrder($data, $order_id);
         } catch (Exception $e) {
-            // Lidar com erros de processamento de pagamento
             return $e->getMessage();
         }
     }

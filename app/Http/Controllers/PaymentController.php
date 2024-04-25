@@ -33,20 +33,16 @@ class PaymentController extends Controller
         return response()->json(['message' => $response]);
     }
 
-    public function getOrder(string $order_id = null)
+    public function getOrder(Request $request)
     {
-        if($order_id === null){
-            return response()->json(['error' => 'OrderId é necessário']);
-        }
+        $order_id = $request->order_id;
         $response = $this->paymentService->getOrder($order_id);
         return response()->json(['message' => $response]);
     }
 
     public function getItemOrder(Request $request)
     {
-        // Supondo que você tenha os dados de pagamento no corpo da solicitação
         $data = $request->all();
-
         $response = $this->paymentService->getItemOrder($data);
         return response()->json(['message' => $response]);
     }
@@ -61,15 +57,10 @@ class PaymentController extends Controller
         return response()->json(['message' => $response]);
     }
 
-    public function addItemOrder(Request $request)
+    public function addItemOrder(Request $request, string $order_id)
     {
-        // Supondo que você tenha os dados de pagamento no corpo da solicitação
         $data = $request->all();
-
-        // Processar o pagamento usando o serviço de gateway de pagamento
-        $response = $this->paymentService->addItemOrder($data);
-
-        // Retornar a resposta para o cliente
+        $response = $this->paymentService->addItemOrder($data, $order_id);
         return response()->json(['message' => $response]);
     }
 }
