@@ -27,8 +27,7 @@ class PagarmeGateway implements PaymentGatewayInterface
     {
         try {
             $response = Http::withHeaders($this->headers)->get( self::BASE_URL . '/orders');
-            $data = json_decode($response->getBody(), true);
-            return $data;
+            return json_decode($response->getBody(), true);
         } catch (Exception $e) {
             return ['data' => [
                     'message' => 'Falha ao listar pedidos',
@@ -38,8 +37,18 @@ class PagarmeGateway implements PaymentGatewayInterface
         }
     }
 
-    public function createOrder($data){
-
+    public function createOrder(array $data = [])
+    {
+        try {
+            $response = Http::withHeaders($this->headers)->post( self::BASE_URL . "/orders", $data);
+            return json_decode($response->getBody(), true);
+        } catch (Exception $e) {
+            return ['data' => [
+                    'message' => 'Falha ao fechar pedido',
+                    'error' => $e->getMessage()
+                ]
+            ];
+        }
     }
 
     public function getOrder(string $order_id)
@@ -61,16 +70,11 @@ class PagarmeGateway implements PaymentGatewayInterface
         return "getItemOrder do pagamento com Pagarme: " . json_encode($data);
     }
 
-    public function closeOrder($order_id)
+    public function closeOrder(array $data, string $order_id)
     {
         try {
-            $response = Http::withHeaders($this->headers)
-                ->patch( self::BASE_URL . "/orders/{$order_id}/closed", [
-                    'status' => 'canceled'
-                ]);
-
-            $data = json_decode($response->getBody(), true);
-            return $data;
+            $response = Http::withHeaders($this->headers)->patch( self::BASE_URL . "/orders/{$order_id}/closed", $data);
+            return json_decode($response->getBody(), true);
         } catch (Exception $e) {
             return ['data' => [
                     'message' => 'Falha ao fechar pedido',

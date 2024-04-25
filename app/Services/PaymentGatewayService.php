@@ -24,13 +24,11 @@ class PaymentGatewayService
         }
     }
 
-    public function createOrder($data)
+    public function createOrder(array $data = [])
     {
         try {
-            // Lógica para processar o pagamento usando o gateway específico
             return $this->gateway->createOrder($data);
         } catch (Exception $e) {
-            // Lidar com erros de processamento de pagamento
             return $e->getMessage();
         }
     }
@@ -57,10 +55,10 @@ class PaymentGatewayService
         }
     }
 
-    public function closeOrder(string $order_id)
+    public function closeOrder(array $data, string $order_id)
     {
         try {
-            return $this->gateway->closeOrder($order_id);
+            return $this->gateway->closeOrder($data, $order_id);
         } catch (Exception $e) {
             return $e->getMessage();
         }

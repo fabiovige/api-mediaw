@@ -28,13 +28,8 @@ class PaymentController extends Controller
 
     public function createOrder(Request $request)
     {
-        // Supondo que você tenha os dados de pagamento no corpo da solicitação
         $data = $request->all();
-
-        // Processar o pagamento usando o serviço de gateway de pagamento
         $response = $this->paymentService->createOrder($data);
-
-        // Retornar a resposta para o cliente
         return response()->json(['message' => $response]);
     }
 
@@ -56,12 +51,13 @@ class PaymentController extends Controller
         return response()->json(['message' => $response]);
     }
 
-    public function closeOrder(string $order_id)
+    public function closeOrder(Request $request, string $order_id)
     {
+        $data = $request->all();
         if($order_id === null){
             return response()->json(['error' => 'OrderId é necessário']);
         }
-        $response = $this->paymentService->closeOrder($order_id);
+        $response = $this->paymentService->closeOrder($data, $order_id);
         return response()->json(['message' => $response]);
     }
 
