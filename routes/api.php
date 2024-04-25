@@ -14,11 +14,11 @@ Route::middleware('auth:api')->group(function () {
 
     // endpoints
     Route::get('/service-orders-list', [PaymentController::class, 'listOrders']);
-    Route::post('/service-orders-create', [PaymentController::class, 'createOrder']);
-    Route::get('/service-order', [PaymentController::class, 'getOrder']);
-    Route::get('/service-order-item', [PaymentController::class, 'getItemOrder']);
-    Route::patch('/service-order-close', [PaymentController::class, 'closeOrder']);
-    Route::post('/service-order-add-item', [PaymentController::class, 'addItemOrder']);
+    //Route::post('/service-orders-create', [PaymentController::class, 'createOrder']);
+    Route::get('/service-order/{order_id}', [PaymentController::class, 'getOrder']);
+    //Route::get('/service-order-item', [PaymentController::class, 'getItemOrder']);
+    Route::patch('/service-order-close/{order_id}', [PaymentController::class, 'closeOrder']);
+    //Route::post('/service-order-add-item', [PaymentController::class, 'addItemOrder']);
 });
 
 Route::post('/login', [AuthController::class, 'login']);

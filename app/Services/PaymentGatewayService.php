@@ -57,13 +57,11 @@ class PaymentGatewayService
         }
     }
 
-    public function closeOrder($data)
+    public function closeOrder(string $order_id)
     {
         try {
-            // Lógica para processar o pagamento usando o gateway específico
-            return $this->gateway->closeOrder($data);
+            return $this->gateway->closeOrder($order_id);
         } catch (Exception $e) {
-            // Lidar com erros de processamento de pagamento
             return $e->getMessage();
         }
     }
