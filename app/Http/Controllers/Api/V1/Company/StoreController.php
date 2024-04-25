@@ -20,7 +20,7 @@ class StoreController
 
         try {
             $uuid = Uuid::uuid4();
-            
+
             $user = User::create([
                 'name' => $request->company,
                 'email' => $request->email,
@@ -49,7 +49,12 @@ class StoreController
 
             DB::rollBack();
 
-            return response()->json(['message' => 'Failed to create company', 'error' => $e->getMessage()], 500);
+            return response()->json([
+                'data' => [
+                    'message' => 'Falha ao relizar o cadastro',
+                    'error' => $e->getMessage()
+                ],
+            ], 500);
         }
     }
 }

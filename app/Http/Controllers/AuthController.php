@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Company;
-use App\Models\CompanyAuthentication;
 use App\Services\AuthServices;
 use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class AuthController extends Controller
 {
-
-    public function __construct(private AuthServices $authService)
-    {
-    }
+    public function __construct(private AuthServices $authService){}
 
     public function login(Request $request)
     {
