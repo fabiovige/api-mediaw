@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\PaymentGatewayService;
+use Exception;
 
 class PaymentController extends Controller
 {
@@ -16,14 +17,13 @@ class PaymentController extends Controller
 
     public function listOrders(Request $request)
     {
-        // Supondo que você tenha os dados de pagamento no corpo da solicitação
-        $data = $request->all();
-
-        // Processar o pagamento usando o serviço de gateway de pagamento
-        $response = $this->paymentService->listOrders($data);
-
-        // Retornar a resposta para o cliente
-        return response()->json(['message' => $response]);
+        try {
+            $data = $request->all();
+            $response = $this->paymentService->listOrders($data);
+            return response()->json(['message' => $response]);
+        } catch (Exception $e){
+            return response()->json(['error' => $e->getMessage()]);
+        }
     }
 
     public function createOrder(Request $request)

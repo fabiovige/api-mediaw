@@ -6,20 +6,15 @@ use Exception;
 
 class PaymentGatewayService
 {
-    protected $gateway;
+    public function __construct(
+        private PaymentGatewayInterface $gateway
+    ){}
 
-    public function __construct(PaymentGatewayInterface $gateway)
-    {
-        $this->gateway = $gateway;
-    }
-
-    public function listOrders($data)
+    public function listOrders(array $data = [])
     {
         try {
-            // Lógica para processar o pagamento usando o gateway específico
             return $this->gateway->listOrders($data);
         } catch (Exception $e) {
-            // Lidar com erros de processamento de pagamento
             return $e->getMessage();
         }
     }
@@ -33,13 +28,11 @@ class PaymentGatewayService
         }
     }
 
-    public function getOrder($data)
+    public function getOrder(array $data = [])
     {
         try {
-            // Lógica para processar o pagamento usando o gateway específico
             return $this->gateway->getOrder($data);
         } catch (Exception $e) {
-            // Lidar com erros de processamento de pagamento
             return $e->getMessage();
         }
     }

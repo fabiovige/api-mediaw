@@ -1,13 +1,15 @@
 <?php
 
+use App\Http\Controllers\Api\V1\Company\IndexController;
+use App\Http\Controllers\Api\V1\Company\StoreController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
-Route::post('/companies', \App\Http\Controllers\Api\V1\Company\StoreController::class)->name('store');
+Route::post('/companies', StoreController::class)->name('store');
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('/companies', \App\Http\Controllers\Api\V1\Company\IndexController::class)->name('index');
+    Route::get('/companies', IndexController::class)->name('index');
     Route::get('/refresh-token', [AuthController::class, 'refreshToken']);
     Route::get('/payload-token', [AuthController::class, 'payloadToken']);
     Route::get('/logout', [AuthController::class, 'logout']);

@@ -2,15 +2,23 @@
 
 namespace App\Services;
 
-use App\Models\Company;
-use App\Models\CompanyAuthentication;
-use Illuminate\Http\Request;
+use App\Repositories\CompanyAuthenticationRepository;
+use App\Repositories\CompanyRepository;
 
 class AuthServices
 {
+    protected CompanyRepository $companyRepository;
+    protected CompanyAuthenticationRepository $companyAuthenticationRepository;
+
+    public function __construct()
+    {
+        $this->companyRepository = app(CompanyRepository::class);
+        $this->companyAuthenticationRepository = app(CompanyAuthenticationRepository::class);
+    }
+
     public function getToken(string $token_api_service): String
     {
-        $companyAuthentication = CompanyAuthentication::where('token_api_service', '=', $token_api_service )->first();
+        $companyAuthentication = $this->companyAuthenticationRepository->getTokenApiService($token_api_service);
         if (!$companyAuthentication){
             throw new \Exception('Token inválido');
         }
@@ -27,7 +35,7 @@ class AuthServices
 
     public function getTokenApiService(string $cnpj): string
     {
-        $company = Company::where('cnpj', '=', $cnpj )->first();
+        $company = $this->companyRepository->getByCnpj($cnpj);
         if(!$company){
             throw new \Exception('Cnpj não encontrado');
         }
