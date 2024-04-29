@@ -75,9 +75,48 @@ sudo nano /etc/hosts
 127.0.0.1 api-mediaw.test
 ```
 
-
 ## Acessando o sistema: http://api-mediaw.test
 
 ## Endpoints
 
+Obtem uma api_token
+[GET] http://api-mediaw.test/api/v1/company-authentication 
 
+Lista as companias
+[GET] http://api-mediaw.test/api/v1/companies
+
+Atualiza o token
+[GET] http://api-mediaw.test/api/v1/refresh-token
+
+Exibe os dados do token "demonstração"
+[GET] http://api-mediaw.test/api/v1/payload-token
+
+Adiciona uma nova compania
+[POST] http://api-mediaw.test/api/v1/companies 
+
+Realiza login
+[POSt] http://api-mediaw.test/api/v1/login 
+
+Encerra a sessão e exclui os tokens
+[GET] http://api-mediaw.test/api/v1/logout 
+
+Consulta companias com filtro
+[GET] http://api-mediaw.test/api/v1/companies?page=1&filter[company]=Padilha 
+
+Lista todas os pedidos (pagarme)
+[GET] http://api-mediaw.test/api/v1/service-orders-list
+
+Lista um pedido (pagarme)
+[POST] http://api-mediaw.test/api/v1/service-order
+
+Consulta um item de pedido (pagarme)
+[POST] http://api-mediaw.test/api/v1/service-order-item
+
+Cadastra um novo pedido (pagarme)
+[POST] http://api-mediaw.test/api/v1/service-orders-create
+
+Adiciona um novo item ao pedido (pagarme)
+[POST] http://api-mediaw.test/api/v1/service-order-add-item/or_B32Xq00upSjwQZqY
+
+Fecha um pedido (pagarme)
+[PATCH] http://api-mediaw.test/api/v1/service-order-close/or_EOzypD4t6hApn8D9
