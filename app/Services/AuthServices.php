@@ -19,6 +19,7 @@ class AuthServices
     public function getToken(string $token_api_service): String
     {
         $companyAuthentication = $this->companyAuthenticationRepository->getTokenApiService($token_api_service);
+
         if (!$companyAuthentication){
             throw new \Exception('Token inválido');
         }
@@ -29,6 +30,10 @@ class AuthServices
         ];
 
         $token = auth()->attempt($credentials);
+
+        if (! $token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
 
         return $token;
     }
