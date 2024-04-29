@@ -2,25 +2,38 @@
 
 ## instalação
 
-git clone https://github.com/fabiovige/api-mediaw
+git clone git@github.com:fabiovige/api-mediaw.git api-media
 
-cd api-mediaw
+cd api-media
+
+cp .env.example .env
+
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=mediaw_db
+DB_USERNAME=root
+DB_PASSWORD=root
 
 docker compose up -d
 
-docker exec mediaw-app bash
+docker exec -it mediaw-app bash
 
 composer install
 
 php artisan key:generate
 
-php artisan migrate
+php artisan migrate:refresh --seed
 
-## endpoints
 
-[GET] http://api-mediaw.test/api/v1/companies
-[POST] http://api-mediaw.test/api/v1/companies
-[GET] http://api-mediaw.test/api/v1/companies?page=1&filter[company]=ltda
-[GET] http://api-mediaw.test/api/v1/refresh
-[POST] http://api-mediaw.test/api/v1/login
+# windows - adicione ao arquivo hosts
+C:\Windows\System32\drivers\etc
+127.0.0.1 api-mediaw.test
+
+# linux - adicione ao arquivo hosts
+sudo nano /etc/hosts
+127.0.0.1 api-mediaw.test
+
+acesse: http://api-mediaw.test
+
 
