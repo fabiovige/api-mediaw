@@ -10,6 +10,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "laravellegends/pt-br-validator": "^11.0",
+        "ramsey/uuid": "^4.7",
         "spatie/laravel-query-builder": "^5.8",
         "tymon/jwt-auth": "^2.1"
     },
@@ -24,6 +25,7 @@
     },
     "autoload": {
         "psr-4": {
+            "Core\\": "src/Core",
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"

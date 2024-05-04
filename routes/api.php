@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\Company\IndexController;
 use App\Http\Controllers\Api\V1\Company\StoreController;
+use App\Http\Controllers\Api\V1\CompanyController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
@@ -26,5 +27,8 @@ Route::middleware('auth:api')->group(function () {
     Route::post('/service-order-add-item/{order_id}', [PaymentController::class, 'addItemOrder']);
 });
 
+
+// refatorado
+Route::post('/create-company', [CompanyController::class, 'store']);
 
 
