@@ -2,7 +2,7 @@
 
 namespace Core\UseCase\Company;
 
-use Core\Domain\DTO\{
+use Core\Application\DTO\{
     CreateCompanyInput,
     CreateCompanyOutput
 };
@@ -20,12 +20,12 @@ class CreateCompanyUseCase
 
     public function execute(CreateCompanyInput $input): CreateCompanyOutput
     {
-        $company = new Company(
+        $companyEntity = new Company(
             company: $input->company,
             cnpj: $input->cnpj
         );
 
-        $newCompany = $this->repository->save($company);
+        $newCompany = $this->repository->save($companyEntity);
 
         return new CreateCompanyOutput(
             id_company: $newCompany->id_company,

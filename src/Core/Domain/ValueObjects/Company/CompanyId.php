@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Domain\ValueObjects;
+namespace Core\Domain\ValueObjects\Company;
 
 use Ramsey\Uuid\Uuid;
 

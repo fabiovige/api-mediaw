@@ -7,6 +7,10 @@ use App\Services\AuthServices;
 use App\Services\PagarmeGateway;
 use App\Services\PaymentGatewayInterface;
 use App\Services\PaymentGatewayService;
+use Core\Infra\Factory\CompanyFactoryInterface;
+use Core\Infra\Factory\EloquentCompanyFactory;
+use Core\Infra\Repositories\CompanyRepository;
+use Core\Infra\Repositories\CompanyRepositoryInterface;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -27,6 +31,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(PaymentGatewayService::class, function ($app) {
             return new PaymentGatewayService($app->make(PaymentGatewayInterface::class));
         });
+
+        $this->app->bind(
+            CompanyRepositoryInterface::class,
+            CompanyRepository::class
+        );
+
+        $this->app->bind(
+            CompanyFactoryInterface::class,
+            EloquentCompanyFactory::class
+        );
     }
 
     /**

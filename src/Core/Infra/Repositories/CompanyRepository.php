@@ -2,8 +2,8 @@
 
 namespace Core\Infra\Repositories;
 
-use Core\Domain\Entity\Company;
-use Core\Domain\Factory\CompanyFactoryInterface;
+use Core\Domain\Entity\Company as CompanyEntity;
+use Core\Infra\Factory\CompanyFactoryInterface;
 
 class CompanyRepository implements CompanyRepositoryInterface
 {
@@ -15,12 +15,10 @@ class CompanyRepository implements CompanyRepositoryInterface
         $this->factory = $factory;
     }
 
-    public function save(Company $company): Company
+    public function save(CompanyEntity $companyEntity): CompanyEntity
     {
-        $company = $this->factory->create(
-            $company->company,
-            $company->cnpj
-        );
+        $company = $this->factory->create($companyEntity);
+        dd($company);
         // Aqui, o modelo Eloquent é salvo pelo método create da factory
         return $company;
     }

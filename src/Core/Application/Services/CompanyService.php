@@ -1,11 +1,8 @@
 <?php
 
-namespace Core\Domain\Services;
+namespace Core\Application\Services;
 
-use Core\Domain\DTO\CreateCompanyInput;
-use Core\Domain\Entity\Company;
-use Core\Domain\ValueObjects\CompanyId;
-use Core\Infra\Repositories\CompanyRepositoryInterface;
+use Core\Application\DTO\CreateCompanyInput;
 use Core\UseCase\Company\CreateCompanyUseCase;
 
 class CompanyService
@@ -19,17 +16,6 @@ class CompanyService
 
     public function registerCompany(CreateCompanyInput $input)
     {
-        //dd($dto);
-        /*$dto = new Company( // Geração de um ID único para a companhia
-            $dto->company,
-            $dto->cnpj // Inclusão do CNPJ
-        );
-        */
-
         return $this->createCompanyUseCase->execute($input);
-
-        //$this->repositoryCompany->save($dto); // Salva a nova companhia no repositório
-
-        //return $company;
     }
 }

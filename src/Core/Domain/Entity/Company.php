@@ -19,11 +19,20 @@ class Company
 
     public function validate()
     {
-        if (empty($this->company) || strlen($this->company) <= 3 && strlen($this->company) > 255){
-            throw new CompanyValidationExcpetion("Nome inválido");
+        //dd($this->company, strlen($this->company));
+        if (empty($this->company) ) {
+            throw new CompanyValidationExcpetion("Nome da compania é obrigatório");
         }
 
-        if (empty($this->cnpj) || strlen($this->company) != 14){
+        if (strlen($this->company) <= 3) {
+            throw new CompanyValidationExcpetion("Nome não pode ser menor que 3");
+        }
+
+        if (strlen($this->company) > 150) {
+            throw new CompanyValidationExcpetion("Nome não pode ser maior que 150");
+        }
+
+        if (empty($this->cnpj) && strlen($this->company) != 14){
             throw new CompanyValidationExcpetion("Cnpj inválido");
         }
     }
