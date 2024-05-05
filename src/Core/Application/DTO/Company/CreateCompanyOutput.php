@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Application\DTO;
+namespace Core\Application\DTO\Company;
 
 class CreateCompanyOutput
 {

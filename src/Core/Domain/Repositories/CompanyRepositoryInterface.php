@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Infra\Repositories;
+namespace Core\Domain\Repositories;
 
 use Core\Domain\Entity\Company;
 

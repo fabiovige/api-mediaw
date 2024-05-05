@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Infra\Factory;
+namespace Core\Domain\Factory;
 
 use Core\Domain\Entity\Company;
 

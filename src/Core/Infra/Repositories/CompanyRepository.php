@@ -3,17 +3,14 @@
 namespace Core\Infra\Repositories;
 
 use Core\Domain\Entity\Company as CompanyEntity;
-use Core\Infra\Factory\CompanyFactoryInterface;
+use Core\Domain\Factory\CompanyFactoryInterface;
+use Core\Domain\Repositories\CompanyRepositoryInterface;
 
 class CompanyRepository implements CompanyRepositoryInterface
 {
-
-    private $factory;
-
-    public function __construct(CompanyFactoryInterface $factory)
-    {
-        $this->factory = $factory;
-    }
+    public function __construct(
+        private CompanyFactoryInterface $factory
+    ){}
 
     public function save(CompanyEntity $companyEntity): CompanyEntity
     {

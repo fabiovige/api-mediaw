@@ -2,9 +2,9 @@
 
 namespace Core\Infra\Factory;
 
-use Core\Infra\Factory\CompanyFactoryInterface;
 use Core\Domain\Entity\Company;
 use App\Models\Company as CompanyModel;
+use Core\Domain\Factory\CompanyFactoryInterface;
 
 class EloquentCompanyFactory implements CompanyFactoryInterface
 {
