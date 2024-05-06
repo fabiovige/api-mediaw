@@ -22,3 +22,14 @@ php artisan migrate:refresh --seed
 php artisan jwt:secret
 clear
 exit;
+composer dump-autoload
+clear
+php artisan optmize
+php artisan optimize
+clear
+composer dump-autoload
+php artisan optimize
+php artisan config:clear
+php artisan optimize
+php artisan optimize
+exit;

@@ -4,7 +4,6 @@ namespace Core\Infra\Repositories;
 
 use Core\Domain\Entity\User as UserEntity;
 use Core\Domain\Repositories\UserRepositoryInterface;
-use Core\Domain\Exception\DomainException;
 use Core\Domain\Persistence\UserOrmInterface;
 
 class UserRepository implements UserRepositoryInterface

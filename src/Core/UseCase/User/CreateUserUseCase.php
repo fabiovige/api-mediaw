@@ -7,7 +7,6 @@ use Core\Application\DTO\User\{
     CreateUserOutput,
 };
 use Core\Domain\Entity\User;
-use Core\Domain\Exception\CompanyValidationExcpetion;
 use Core\Domain\Repositories\UserRepositoryInterface;
 
 class CreateUserUseCase

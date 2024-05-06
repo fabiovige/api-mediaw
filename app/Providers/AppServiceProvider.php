@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\AuthService;
 use App\Services\AuthServices;
 use App\Services\PagarmeGateway;
 use App\Services\PaymentGatewayInterface;
@@ -14,17 +13,21 @@ use Core\Domain\Persistence\UserOrmInterface;
 use Core\Domain\Interfaces\HasherInterface;
 use Core\Domain\Interfaces\TransactionalInterface;
 use Core\Domain\Interfaces\UuidGeneratorInterface;
+use Core\Domain\Persistence\CompanyAuthenticationOrmInterface;
 use Core\Domain\Repositories\CompanyRepositoryInterface;
+use Core\Domain\Repositories\CompanyAuthenticationRepositoryInterface;
 use Core\Domain\Repositories\UserRepositoryInterface;
 
 use Core\Infra\Persistence\EloquentCompany;
+use Core\Infra\Persistence\EloquentCompanyAuthentication;
 use Core\Infra\Persistence\EloquentTransactional;
 use Core\Infra\Persistence\EloquentUser;
-
+use Core\Infra\Repositories\CompanyAuthenticationRepository;
 use Core\Infra\Repositories\CompanyRepository;
 use Core\Infra\Repositories\UserRepository;
 use Core\Infra\Utils\LaravelHasher;
 use Core\Infra\Utils\RamseyUuidGenerator;
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -47,11 +50,9 @@ class AppServiceProvider extends ServiceProvider
 
         // Company - injeção de dependencia do repositorio
         $this->app->bind(CompanyRepositoryInterface::class,CompanyRepository::class);
-        $this->app->bind(CompanyOrmInterface::class,EloquentCompany::class);
 
         // User - injeção de dependencia do repositorio
         $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
-        $this->app->bind(UserOrmInterface::class,EloquentUser::class);
 
         // Utils - dependencias externas
         $this->app->bind(UuidGeneratorInterface::class, RamseyUuidGenerator::class);
@@ -59,6 +60,14 @@ class AppServiceProvider extends ServiceProvider
 
         // Domain/Interfaces - dependencias externas
         $this->app->bind(TransactionalInterface::class, EloquentTransactional::class);
+
+        // Company Authentication
+        $this->app->bind(CompanyAuthenticationRepositoryInterface::class, CompanyAuthenticationRepository::class);
+
+        // ORM
+        $this->app->bind(CompanyOrmInterface::class,EloquentCompany::class);
+        $this->app->bind(CompanyAuthenticationOrmInterface::class,EloquentCompanyAuthentication::class);
+        $this->app->bind(UserOrmInterface::class,EloquentUser::class);
     }
 
     /**

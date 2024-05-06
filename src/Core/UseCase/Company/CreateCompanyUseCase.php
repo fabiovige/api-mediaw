@@ -6,17 +6,14 @@ use Core\Application\DTO\Company\{
     CreateCompanyInput,
     CreateCompanyOutput
 };
-use Core\Application\Services\UserService;
+
 use Core\Domain\Entity\Company;
 use Core\Domain\Repositories\CompanyRepositoryInterface;
-use Core\Domain\Repositories\UserRepositoryInterface;
 
 class CreateCompanyUseCase
 {
-
     public function __construct(
         protected CompanyRepositoryInterface $companyRepository,
-        protected UserService $userService,
     ){}
 
     public function execute(CreateCompanyInput $input): CreateCompanyOutput
