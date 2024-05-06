@@ -7,6 +7,7 @@ class CreateCompanyOutput
     public function __construct(
         public int $id_company,
         public string $company,
-        public string $cnpj
+        public string $cnpj,
+        public int $user_id,
     ){}
 }

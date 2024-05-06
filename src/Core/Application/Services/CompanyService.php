@@ -8,6 +8,8 @@ use Core\Application\DTO\Company\{
 use Core\Application\DTO\User\CreateUserInput;
 use Core\Domain\Exception\CompanyValidationExcpetion;
 use Core\Domain\Interfaces\HasherInterface;
+use Core\Domain\Interfaces\TransactionalInterface;
+use Core\Domain\Interfaces\TransactionalSession;
 use Core\Domain\Interfaces\UuidGeneratorInterface;
 use Core\UseCase\Company\CreateCompanyUseCase;
 use Core\UseCase\User\CreateUserUseCase;
@@ -18,32 +20,33 @@ class CompanyService
         private CreateCompanyUseCase $createCompanyUseCase,
         private CreateUserUseCase $createUserUseCase,
         private UuidGeneratorInterface $uuidGenerator,
-        private HasherInterface $hasher
+        private HasherInterface $hasher,
+        private TransactionalInterface $transaction
     ){}
 
     public function registerCompany(CreateCompanyInput $input)
     {
-        //dd($input);
+        $this->transaction->beginTransaction();
         try {
             $uuid = $this->uuidGenerator->generate();
-            $password = $this->hasher->make($uuid);
 
-            $dtoUser = new CreateUserInput(
+            // criar o usuario
+            $user = $this->createUserUseCase->execute(new CreateUserInput(
                 name: $input->company,
                 email: $input->email,
-                password: $password,
-            );
-
-
-            $user = $this->createUserUseCase->execute($dtoUser);
-            // criar o usuario
+                password: $this->hasher->make($uuid)
+            ));
 
             // criar a compania passando o user_id
-            return $this->createCompanyUseCase->execute($input);
+            $input->user_id = $user->id;
+            $company = $this->createCompanyUseCase->execute($input);
+
+            $this->transaction->commit();
+            return $company;
 
         } catch (CompanyValidationExcpetion $e) {
-            // Tratar qualquer outra exceção genérica
-           dd('teste');  
+            $this->transaction->rollback();
+            throw $e;
         }
     }
 }

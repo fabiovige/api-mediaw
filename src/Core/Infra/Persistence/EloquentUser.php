@@ -1,28 +1,25 @@
 <?php
 
-namespace Core\Infra\Factory;
+namespace Core\Infra\Persistence;
 
 use Core\Domain\Entity\User;
 use App\Models\User as UserModel;
 use Core\Domain\Exception\UniqueConstraintViolationException;
-use Core\Domain\Factory\UserFactoryInterface;
+use Core\Domain\Persistence\UserOrmInterface;
 use Exception;
 
-class EloquentUserFactory implements UserFactoryInterface
+class EloquentUser implements UserOrmInterface
 {
     public function create(User $user): User
     {
         try {
-            //dd($user->name);
             $eloquentUser = UserModel::create([
-                'name' => $user->name,
-                'email' => $user->email,
-                'password' => $user->password
+                'name' => $user->getName(),
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword()
             ]);
 
-            $user->id = $eloquentUser->id;
-            dd($user, $eloquentUser);
-            //$user->id = $eloquentUser->id;
+            $user->setId($eloquentUser->id);
             return $user;
 
         } catch (Exception $e) {

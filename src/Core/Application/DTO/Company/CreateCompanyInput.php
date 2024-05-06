@@ -7,6 +7,7 @@ class CreateCompanyInput
     public function __construct(
         public string $company,
         public string $cnpj,
-        public string $email
+        public string $email,
+        public ?int $user_id = null,
     ){}
 }

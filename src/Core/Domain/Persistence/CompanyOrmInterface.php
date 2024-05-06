@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Domain\Factory;
+namespace Core\Domain\Persistence;
 
 use Core\Domain\Entity\Company;
 
-interface CompanyFactoryInterface
+interface CompanyOrmInterface
 {
     public function create(Company $company): Company;
 }

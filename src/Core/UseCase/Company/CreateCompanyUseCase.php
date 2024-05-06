@@ -21,19 +21,20 @@ class CreateCompanyUseCase
 
     public function execute(CreateCompanyInput $input): CreateCompanyOutput
     {
-        //$user = $this->userService->registerUser($input->email, $input->password); // Supondo que esses dados venham no input
-
         $companyEntity = new Company(
+            id_company: null,
             company: $input->company,
-            cnpj: $input->cnpj
+            cnpj: $input->cnpj,
+            user_id: $input->user_id
         );
 
-        $newCompany = $this->companyRepository->save($companyEntity);
+        $company = $this->companyRepository->save($companyEntity);
 
         return new CreateCompanyOutput(
-            id_company: $newCompany->id_company,
-            company: $newCompany->company,
-            cnpj: $newCompany->cnpj,
+            id_company: $company->id_company,
+            company: $company->company,
+            cnpj: $company->cnpj,
+            user_id: $company->user_id,
         );
     }
 }

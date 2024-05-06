@@ -1,10 +1,10 @@
 <?php
 
-namespace Core\Domain\Factory;
+namespace Core\Domain\Persistence;
 
 use Core\Domain\Entity\User;
 
-interface UserFactoryInterface
+interface UserOrmInterface
 {
     public function create(User $user): User;
 }

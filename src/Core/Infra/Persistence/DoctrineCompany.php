@@ -2,12 +2,12 @@
 
 namespace Core\Infra\Factory;
 
-use Core\Infra\Factory\CompanyFactoryInterface;
 use Core\Domain\Entity\Company;
 
 use App\Models\DoctrineCompany; // Este seria um modelo Doctrine.
+use Core\Domain\Persistence\CompanyOrmInterface;
 
-class DoctrineCompanyFactory implements CompanyFactoryInterface
+class DoctrineCompanyFactory implements CompanyOrmInterface
 {
     public function create(Company $company): Company
     {

@@ -7,14 +7,20 @@ use App\Services\AuthServices;
 use App\Services\PagarmeGateway;
 use App\Services\PaymentGatewayInterface;
 use App\Services\PaymentGatewayService;
-use Core\Domain\Factory\CompanyFactoryInterface;
-use Core\Domain\Factory\UserFactoryInterface;
+
+use Core\Domain\Persistence\CompanyOrmInterface;
+use Core\Domain\Persistence\UserOrmInterface;
+
 use Core\Domain\Interfaces\HasherInterface;
+use Core\Domain\Interfaces\TransactionalInterface;
 use Core\Domain\Interfaces\UuidGeneratorInterface;
 use Core\Domain\Repositories\CompanyRepositoryInterface;
 use Core\Domain\Repositories\UserRepositoryInterface;
-use Core\Infra\Factory\EloquentCompanyFactory;
-use Core\Infra\Factory\EloquentUserFactory;
+
+use Core\Infra\Persistence\EloquentCompany;
+use Core\Infra\Persistence\EloquentTransactional;
+use Core\Infra\Persistence\EloquentUser;
+
 use Core\Infra\Repositories\CompanyRepository;
 use Core\Infra\Repositories\UserRepository;
 use Core\Infra\Utils\LaravelHasher;
@@ -41,15 +47,18 @@ class AppServiceProvider extends ServiceProvider
 
         // Company - injeção de dependencia do repositorio
         $this->app->bind(CompanyRepositoryInterface::class,CompanyRepository::class);
-        $this->app->bind(CompanyFactoryInterface::class,EloquentCompanyFactory::class);
+        $this->app->bind(CompanyOrmInterface::class,EloquentCompany::class);
 
         // User - injeção de dependencia do repositorio
         $this->app->bind(UserRepositoryInterface::class,UserRepository::class);
-        $this->app->bind(UserFactoryInterface::class,EloquentUserFactory::class);
+        $this->app->bind(UserOrmInterface::class,EloquentUser::class);
 
         // Utils - dependencias externas
         $this->app->bind(UuidGeneratorInterface::class, RamseyUuidGenerator::class);
         $this->app->bind(HasherInterface::class, LaravelHasher::class);
+
+        // Domain/Interfaces - dependencias externas
+        $this->app->bind(TransactionalInterface::class, EloquentTransactional::class);
     }
 
     /**

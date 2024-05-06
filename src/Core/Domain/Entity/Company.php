@@ -11,8 +11,10 @@ class Company
     use MethodsMagics;
 
     public function __construct(
+        protected ?int $id_company = null,
         protected string $company,
-        protected string $cnpj
+        protected string $cnpj,
+        protected int $user_id
     ){
         $this->validate();
     }
@@ -37,4 +39,25 @@ class Company
         }
     }
 
+    // Getters
+    public function getIdCompany(): int {
+        return $this->id_company;
+    }
+
+    public function getCompany(): string {
+        return $this->company;
+    }
+
+    public function getCnpj(): string {
+        return $this->cnpj;
+    }
+
+    public function getUserId(): int {
+        return $this->user_id;
+    }
+
+    // Setters
+    public function setIdCompany(int $id_company): void {
+        $this->id_company = $id_company;
+    }
 }

@@ -7,6 +7,7 @@ use Core\Application\DTO\User\{
     CreateUserOutput,
 };
 use Core\Domain\Entity\User;
+use Core\Domain\Exception\CompanyValidationExcpetion;
 use Core\Domain\Repositories\UserRepositoryInterface;
 
 class CreateUserUseCase
@@ -18,9 +19,8 @@ class CreateUserUseCase
 
     public function execute(CreateUserInput $input): CreateUserOutput
     {
-        //$user = $this->userService->registerUser($input->email, $input->password); // Supondo que esses dados venham no input
-
         $userEntity = new User(
+            id: null,
             name: $input->name,
             email: $input->email,
             password: $input->password

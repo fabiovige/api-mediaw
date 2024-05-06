@@ -3,20 +3,23 @@
 namespace Core\Infra\Repositories;
 
 use Core\Domain\Entity\User as UserEntity;
-use Core\Domain\Factory\UserFactoryInterface;
 use Core\Domain\Repositories\UserRepositoryInterface;
+use Core\Domain\Exception\DomainException;
+use Core\Domain\Persistence\UserOrmInterface;
 
 class UserRepository implements UserRepositoryInterface
 {
     public function __construct(
-        private UserFactoryInterface $factory
+        private UserOrmInterface $orm
     ){}
 
     public function save(UserEntity $userEntity): UserEntity
     {
-        $user = $this->factory->create($userEntity);
-        dd($user);
-        // Aqui, o modelo Eloquent é salvo pelo método create da factory
-        return $user;
+        try {
+            $user = $this->orm->create($userEntity);
+            return $user;
+        } catch (\Exception $e) {
+            throw $e;
+        }
     }
 }
