@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Api\V1\CompanyResource;
+use Illuminate\Http\Request;
 use Core\Application\DTO\Company\{
     CreateCompanyInput,
     FilterCompaniesInput
 };
 use Core\Application\DTO\CompanyGateway\CreateCompanyGatewayInput;
 use Core\Application\Services\CompanyService;
-use Core\Domain\Exception\CompanyValidationExcpetion;
 use Core\Domain\Exception\UniqueConstraintViolationException;
-use Illuminate\Http\Request;
 
-class CompanyController
+
+class CompanyController extends Controller
 {
     private CompanyService $companyService;
 

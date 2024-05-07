@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Services\PaymentGatewayService;
 use Exception;
+
+use Core\Application\Services\PaymentGatewayService;
 
 class PaymentController extends Controller
 {

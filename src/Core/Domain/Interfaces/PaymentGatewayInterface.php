@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace Core\Domain\Interfaces;
 
 interface PaymentGatewayInterface
 {

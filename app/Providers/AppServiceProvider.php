@@ -3,14 +3,16 @@
 namespace App\Providers;
 
 use App\Services\AuthServices;
-use App\Services\PagarmeGateway;
-use App\Services\PaymentGatewayInterface;
-use App\Services\PaymentGatewayService;
+use Core\Application\Services\PaymentGatewayService;
+//use App\Services\PagarmeGateway;
+//use App\Services\PaymentGatewayInterface;
+//use App\Services\PaymentGatewayService;
 
 use Core\Domain\Persistence\CompanyOrmInterface;
 use Core\Domain\Persistence\UserOrmInterface;
 
 use Core\Domain\Interfaces\HasherInterface;
+use Core\Domain\Interfaces\PaymentGatewayInterface;
 use Core\Domain\Interfaces\TransactionalInterface;
 use Core\Domain\Interfaces\UuidGeneratorInterface;
 use Core\Domain\Persistence\CompanyAuthenticationOrmInterface;
@@ -20,6 +22,7 @@ use Core\Domain\Repositories\CompanyAuthenticationRepositoryInterface;
 use Core\Domain\Repositories\CompanyGatewayRepositoryInterface;
 use Core\Domain\Repositories\UserRepositoryInterface;
 
+use Core\Infra\Payment\PagarmeGateway;
 use Core\Infra\Persistence\EloquentCompany;
 use Core\Infra\Persistence\EloquentCompanyAuthentication;
 use Core\Infra\Persistence\EloquentCompanyGateway;
@@ -42,12 +45,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        // Registre suas implementações de gateway de pagamento aqui
+        // PaymentGatewayService
         $this->app->bind(PaymentGatewayInterface::class, function ($app) {
             return new PagarmeGateway();
         });
 
-        // PaymentGatewayService
         $this->app->bind(PaymentGatewayService::class, function ($app) {
             return new PaymentGatewayService($app->make(PaymentGatewayInterface::class));
         });

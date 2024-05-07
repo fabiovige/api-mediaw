@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Services;
+namespace Core\Infra\Payment;
 
-use Exception;
+use Core\Domain\Interfaces\PaymentGatewayInterface;
 use Illuminate\Support\Facades\Http;
+use Exception;
 
 class PagarmeGateway implements PaymentGatewayInterface
 {
     const BASE_URL = "https://api.pagar.me/core/v5/";
-
-    private $headers = [];
+    private $headers;
 
     public function __construct()
     {
