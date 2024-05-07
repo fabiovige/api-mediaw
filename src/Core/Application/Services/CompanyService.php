@@ -2,11 +2,9 @@
 
 namespace Core\Application\Services;
 
-use Core\Application\DTO\Company\{
-    CreateCompanyInput
-};
-
+use Core\Application\DTO\Company\CreateCompanyInput;
 use Core\Application\DTO\CompanyAuthentication\CreateCompanyAuthenticationInput;
+use Core\Application\DTO\CompanyGateway\CreateCompanyGatewayInput;
 use Core\Application\DTO\User\CreateUserInput;
 
 use Core\Domain\Exception\CompanyValidationExcpetion;
@@ -15,6 +13,7 @@ use Core\Domain\Interfaces\TransactionalInterface;
 use Core\Domain\Interfaces\UuidGeneratorInterface;
 
 use Core\UseCase\Company\CreateCompanyUseCase;
+use Core\UseCase\CompanyGateway\CreateCompanyGatewayUseCase;
 use Core\UseCase\CompanyAuthentication\CreateCompanyAuthenticationUseCase;
 use Core\UseCase\User\CreateUserUseCase;
 
@@ -24,6 +23,7 @@ class CompanyService
         private CreateCompanyUseCase $createCompanyUseCase,
         private CreateUserUseCase $createUserUseCase,
         private CreateCompanyAuthenticationUseCase $createCompanyAuthenticationUseCase,
+        private CreateCompanyGatewayUseCase $createCompanyGatewayUseCase,
         private UuidGeneratorInterface $uuidGenerator,
         private HasherInterface $hasher,
         private TransactionalInterface $transaction,
@@ -42,7 +42,7 @@ class CompanyService
                 password: $this->hasher->make($uuid)
             ));
 
-            // criar a compania passando o user_id
+            // criar a compania
             $input->user_id = $user->id;
             $company = $this->createCompanyUseCase->execute($input);
 
@@ -52,11 +52,8 @@ class CompanyService
                 token_api_service: $uuid,
             ));
 
-            // criar gateways
-
             $this->transaction->commit();
 
-            dd($company, $companyAuthentication);
             return $company;
 
         } catch (CompanyValidationExcpetion $e) {

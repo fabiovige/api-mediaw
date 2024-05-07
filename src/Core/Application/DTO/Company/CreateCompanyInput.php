@@ -9,5 +9,6 @@ class CreateCompanyInput
         public string $cnpj,
         public string $email,
         public ?int $user_id = null,
+        public array $gateways = []
     ){}
 }

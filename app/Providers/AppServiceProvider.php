@@ -14,15 +14,19 @@ use Core\Domain\Interfaces\HasherInterface;
 use Core\Domain\Interfaces\TransactionalInterface;
 use Core\Domain\Interfaces\UuidGeneratorInterface;
 use Core\Domain\Persistence\CompanyAuthenticationOrmInterface;
+use Core\Domain\Persistence\CompanyGatewayOrmInterface;
 use Core\Domain\Repositories\CompanyRepositoryInterface;
 use Core\Domain\Repositories\CompanyAuthenticationRepositoryInterface;
+use Core\Domain\Repositories\CompanyGatewayRepositoryInterface;
 use Core\Domain\Repositories\UserRepositoryInterface;
 
 use Core\Infra\Persistence\EloquentCompany;
 use Core\Infra\Persistence\EloquentCompanyAuthentication;
+use Core\Infra\Persistence\EloquentCompanyGateway;
 use Core\Infra\Persistence\EloquentTransactional;
 use Core\Infra\Persistence\EloquentUser;
 use Core\Infra\Repositories\CompanyAuthenticationRepository;
+use Core\Infra\Repositories\CompanyGatewayRepository;
 use Core\Infra\Repositories\CompanyRepository;
 use Core\Infra\Repositories\UserRepository;
 use Core\Infra\Utils\LaravelHasher;
@@ -64,8 +68,12 @@ class AppServiceProvider extends ServiceProvider
         // Company Authentication
         $this->app->bind(CompanyAuthenticationRepositoryInterface::class, CompanyAuthenticationRepository::class);
 
-        // ORM
+        // Company gateway
+        $this->app->bind(CompanyGatewayRepositoryInterface::class, CompanyGatewayRepository::class);
+
+        // ORM - Eloquent
         $this->app->bind(CompanyOrmInterface::class,EloquentCompany::class);
+        $this->app->bind(CompanyGatewayOrmInterface::class,EloquentCompanyGateway::class);
         $this->app->bind(CompanyAuthenticationOrmInterface::class,EloquentCompanyAuthentication::class);
         $this->app->bind(UserOrmInterface::class,EloquentUser::class);
     }

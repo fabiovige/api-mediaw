@@ -9,5 +9,6 @@ class CreateCompanyOutput
         public string $company,
         public string $cnpj,
         public int $user_id,
+        public array $gateways = []
     ){}
 }
