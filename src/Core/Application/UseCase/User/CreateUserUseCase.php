@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\UseCase\User;
+namespace Core\Application\UseCase\User;
 
 use Core\Application\DTO\User\{
     CreateUserInput,

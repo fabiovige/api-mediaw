@@ -12,10 +12,10 @@ use Core\Domain\Interfaces\HasherInterface;
 use Core\Domain\Interfaces\TransactionalInterface;
 use Core\Domain\Interfaces\UuidGeneratorInterface;
 
-use Core\UseCase\Company\CreateCompanyUseCase;
-use Core\UseCase\CompanyGateway\CreateCompanyGatewayUseCase;
-use Core\UseCase\CompanyAuthentication\CreateCompanyAuthenticationUseCase;
-use Core\UseCase\User\CreateUserUseCase;
+use Core\Application\UseCase\Company\CreateCompanyUseCase;
+use Core\Application\UseCase\CompanyGateway\CreateCompanyGatewayUseCase;
+use Core\Application\UseCase\CompanyAuthentication\CreateCompanyAuthenticationUseCase;
+use Core\Application\UseCase\User\CreateUserUseCase;
 
 class CompanyService
 {
@@ -35,18 +35,18 @@ class CompanyService
         try {
             $uuid = $this->uuidGenerator->generate();
 
-            // criar o usuario
+            // Adiciona usuario
             $user = $this->createUserUseCase->execute(new CreateUserInput(
                 name: $input->company,
                 email: $input->email,
                 password: $this->hasher->make($uuid)
             ));
 
-            // criar a compania
+            // Adiciona compania e gateway
             $input->user_id = $user->id;
             $company = $this->createCompanyUseCase->execute($input);
 
-            // criar company_authentication
+            // Adiciona token api service company_authentication
             $companyAuthentication = $this->createCompanyAuthenticationUseCase->execute(new CreateCompanyAuthenticationInput(
                 id_company: $company->id_company,
                 token_api_service: $uuid,

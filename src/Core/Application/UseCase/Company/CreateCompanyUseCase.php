@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\UseCase\Company;
+namespace Core\Application\UseCase\Company;
 
 use Core\Application\DTO\Company\{
     CreateCompanyInput,
@@ -30,7 +30,7 @@ class CreateCompanyUseCase
 
         $company = $this->companyRepository->save($companyEntity);
         $gateways = [];
-        
+
         foreach ($input->gateways as $gatewayInput) {
             $gateway = new CompanyGateway(
                 id: null,

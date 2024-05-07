@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\UseCase\CompanyAuthentication;
+namespace Core\Application\UseCase\CompanyAuthentication;
 
 use Core\Application\DTO\CompanyAuthentication\{
     CreateCompanyAuthenticationInput,

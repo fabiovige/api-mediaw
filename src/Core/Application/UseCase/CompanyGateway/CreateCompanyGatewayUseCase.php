@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\UseCase\CompanyGateway;
+namespace Core\Application\UseCase\CompanyGateway;
 
 use Core\Application\DTO\CompanyGateway\{
     CreateCompanyGatewayInput,
