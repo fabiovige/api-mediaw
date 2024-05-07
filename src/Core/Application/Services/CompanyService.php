@@ -3,6 +3,7 @@
 namespace Core\Application\Services;
 
 use Core\Application\DTO\Company\CreateCompanyInput;
+use Core\Application\DTO\Company\FilterCompaniesInput;
 use Core\Application\DTO\CompanyAuthentication\CreateCompanyAuthenticationInput;
 use Core\Application\DTO\CompanyGateway\CreateCompanyGatewayInput;
 use Core\Application\DTO\User\CreateUserInput;
@@ -13,6 +14,7 @@ use Core\Domain\Interfaces\TransactionalInterface;
 use Core\Domain\Interfaces\UuidGeneratorInterface;
 
 use Core\Application\UseCase\Company\CreateCompanyUseCase;
+use Core\Application\UseCase\Company\FilterCompaniesUseCase;
 use Core\Application\UseCase\CompanyGateway\CreateCompanyGatewayUseCase;
 use Core\Application\UseCase\CompanyAuthentication\CreateCompanyAuthenticationUseCase;
 use Core\Application\UseCase\User\CreateUserUseCase;
@@ -27,6 +29,7 @@ class CompanyService
         private UuidGeneratorInterface $uuidGenerator,
         private HasherInterface $hasher,
         private TransactionalInterface $transaction,
+        private FilterCompaniesUseCase $filterCompaniesUseCase
     ){}
 
     public function registerCompany(CreateCompanyInput $input)
@@ -60,5 +63,10 @@ class CompanyService
             $this->transaction->rollback();
             throw $e;
         }
+    }
+
+    public function filterCompanies(FilterCompaniesInput $input)
+    {
+        return $this->filterCompaniesUseCase->execute($input);
     }
 }

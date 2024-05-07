@@ -4,6 +4,7 @@ namespace Core\Infra\Persistence;
 
 use Core\Domain\Entity\Company;
 use App\Models\Company as CompanyModel;
+use Core\Application\DTO\Company\FilterCompaniesInput;
 use Core\Domain\Exception\UniqueConstraintViolationException;
 use Core\Domain\Persistence\CompanyOrmInterface;
 use Exception;
@@ -32,5 +33,22 @@ class EloquentCompany implements CompanyOrmInterface
 
             throw new Exception("Erro ao criar compania: " + $e->getMessage());
         }
+    }
+
+    public function findByCriteria(FilterCompaniesInput $criteria)
+    {
+        $query = CompanyModel::query();
+
+        if ($criteria->company) {
+            $query->where('company', 'like', '%' . $criteria->company . '%');
+        }
+
+        if ($criteria->cnpj) {
+            $query->where('cnpj', 'like', '%' . $criteria->cnpj . '%');
+        }
+
+        // Adicione mais condições conforme necessário
+
+        return $query->get();
     }
 }

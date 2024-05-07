@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Resources\Api\V1\CompanyResource;
 use Core\Application\DTO\Company\{
-    CreateCompanyInput
+    CreateCompanyInput,
+    FilterCompaniesInput
 };
 use Core\Application\DTO\CompanyGateway\CreateCompanyGatewayInput;
 use Core\Application\Services\CompanyService;
@@ -48,5 +50,16 @@ class CompanyController
         } catch (\Exception $e) {
             return response()->json(['error' => 'Internal Server Error'], 500);
         }
+    }
+
+    public function filter(Request $request)
+    {
+        $input = new FilterCompaniesInput(
+            company: $request->input('company'),
+            cnpj: $request->input('cnpj')
+        );
+
+        $companies = $this->companyService->filterCompanies($input);
+        return CompanyResource::collection($companies);
     }
 }
