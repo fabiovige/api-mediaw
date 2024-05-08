@@ -28,4 +28,4 @@ Route::middleware('auth:api')->group(function () {
 
 // refatorado
 Route::post('/create-company', [CompanyController::class, 'store']);
-Route::post('/filter-company', [CompanyController::class, 'filter']);
+Route::post('/companies', [CompanyController::class, 'filter']);
