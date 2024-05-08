@@ -17,4 +17,14 @@ class CompanyAuthenticationRepository implements CompanyAuthenticationRepository
         $companyAuthentication = $this->orm->create($entity);
         return $companyAuthentication;
     }
+
+    public function getEmail(string $token_api_service): string
+    {
+        return $this->orm->getEmail($token_api_service);
+    }
+
+    public function getTokenApiService(string $cnpj): string
+    {
+        return $this->orm->getTokenApiService($cnpj);
+    }
 }

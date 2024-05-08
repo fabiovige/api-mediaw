@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\AuthServices;
 use Core\Application\Services\PaymentGatewayService;
+use Core\Domain\Interfaces\AuthServiceInterface;
 //use App\Services\PagarmeGateway;
 //use App\Services\PaymentGatewayInterface;
 //use App\Services\PaymentGatewayService;
@@ -21,7 +22,7 @@ use Core\Domain\Repositories\CompanyRepositoryInterface;
 use Core\Domain\Repositories\CompanyAuthenticationRepositoryInterface;
 use Core\Domain\Repositories\CompanyGatewayRepositoryInterface;
 use Core\Domain\Repositories\UserRepositoryInterface;
-
+use Core\Infra\Auth\JWTAuthService;
 use Core\Infra\Payment\PagarmeGateway;
 use Core\Infra\Persistence\EloquentCompany;
 use Core\Infra\Persistence\EloquentCompanyAuthentication;
@@ -78,6 +79,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CompanyGatewayOrmInterface::class,EloquentCompanyGateway::class);
         $this->app->bind(CompanyAuthenticationOrmInterface::class,EloquentCompanyAuthentication::class);
         $this->app->bind(UserOrmInterface::class,EloquentUser::class);
+
+        // JWT
+        $this->app->bind(AuthServiceInterface::class, JWTAuthService::class);
     }
 
     /**

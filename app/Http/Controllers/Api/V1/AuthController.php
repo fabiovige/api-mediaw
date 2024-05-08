@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Services\AuthServices;
+use App\Http\Controllers\Controller;
+use Core\Application\Services\AuthService;
 use Exception;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function __construct(private AuthServices $authService){}
+    public function __construct(private AuthService  $authService){}
 
     public function login(Request $request)
     {
@@ -63,17 +64,8 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function payloadToken()
-    {
-        $payload = auth()->payload();
-        $id_company = $payload->get('sub');
-        $user = auth()->user();
-        dd($user, $user->company,  $user->company->company_gateways);
-        dd($payload);
-    }
-
     public function logout()
-    {  
+    {
         $this->authService->logout();
         return response()->json(['message' => 'Logout realizado com sucesso.'], 200);
     }

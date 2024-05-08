@@ -18,6 +18,7 @@ class AuthServices
 
     public function getToken(string $token_api_service): String
     {
+
         $companyAuthentication = $this->companyAuthenticationRepository->getTokenApiService($token_api_service);
 
         if (!$companyAuthentication){

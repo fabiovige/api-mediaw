@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\CompanyController;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\PaymentController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,7 +12,6 @@ Route::get('/company-authentication', [AuthController::class, 'getTokenApiServic
 Route::middleware('auth:api')->group(function () {
     // mediaw
     Route::get('/refresh-token', [AuthController::class, 'refreshToken']);
-    Route::get('/payload-token', [AuthController::class, 'payloadToken']);
     Route::get('/logout', [AuthController::class, 'logout']);
 
     // pagarme
