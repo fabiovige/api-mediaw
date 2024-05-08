@@ -39,8 +39,10 @@ class PagarmeGateway implements PaymentGatewayInterface
 
     public function createOrder(array $data = [])
     {
+
         try {
             $response = Http::withHeaders($this->headers)->post( self::BASE_URL . "/orders", $data);
+
             return json_decode($response->getBody(), true);
         } catch (Exception $e) {
             return ['data' => [

@@ -21,6 +21,9 @@ Route::middleware('auth:api')->group(function () {
     Route::patch('/service-order-close/{order_id}', [PaymentController::class, 'closeOrder']);
     Route::post('/service-order-item', [PaymentController::class, 'getItemOrder']);
     Route::post('/service-order-add-item/{order_id}', [PaymentController::class, 'addItemOrder']);
+
+    // create order com split - deixei o endpoint separado para facilitar os testes
+    Route::post('/service-orders-create-split', [PaymentController::class, 'createOrder']);
 });
 
 // refatorado
